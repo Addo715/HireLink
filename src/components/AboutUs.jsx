@@ -13,7 +13,21 @@ const AboutUs = () => {
       </div>
 
       <div className="my-10 flex flex-col md:flex-row gap-12">
-        <img className="w-full md:max-w-90 h-100" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHdvcmt8ZW58MHx8MHx8fDA%3D" alt="" />
+        {/* <img className="w-full md:max-w-90 h-100" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHdvcmt8ZW58MHx8MHx8fDA%3D" alt="" /> */}
+       <div className="relative w-full lg:w-1/2 flex justify-center">
+          {/* Large image: wider and shorter on small screens */}
+          <img
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHdvcmt8ZW58MHx8MHx8fDA%3D"
+            alt="Hotel"
+            className="rounded-lg shadow-lg w-full max-w-md h-64 md:w-87.5 md:h-100 object-cover"
+          />
+          {/* Smaller image hidden on small screens */}
+          <img
+            src= "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8d29ya3xlbnwwfHwwfHx8MA%3D%3D"
+            alt="Hotel Room"
+            className="rounded-lg shadow-lg w-75 md:w-87.5 h-62.5 object-cover absolute top-55 left-50 md:left-45 border-4 border-white hidden md:block"
+          />
+        </div>
 
         {/* right side */}
         <div className="flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600">
@@ -34,8 +48,9 @@ const AboutUs = () => {
             with advanced filters, personalized recommendations, and direct application features
             that make landing your next role easier than ever. */}
           </p>
-
-          <b className="text-gray-800">Our Vision</b>
+ 
+ <div className="lg:pl-10">
+    <b className="text-gray-800">Our Vision</b>
           <p>
             Our vision is to revolutionize the recruitment industry by creating a global
             platform where opportunities meet talent seamlessly. We aim to empower job seekers
@@ -43,6 +58,9 @@ const AboutUs = () => {
             value their expertise. At the same time, we're committed to helping businesses
             of all sizes discover exceptional talent quickly and efficiently.
           </p>
+
+ </div>
+          
         </div>
       </div>
 
