@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   User,
   Mail,
@@ -17,6 +17,8 @@ import {
   Copy,
 } from "lucide-react";
 import { useApplication } from "../context/ApplicationContext";
+import { useParams } from "react-router-dom";
+import { professionals } from "../assets/asset";
 
 // Input Field Component
 const InputField = ({ icon: Icon, label, error, value, onChange, ...props }) => (
@@ -309,7 +311,7 @@ const Step3 = ({ formData, errors, updateFormData, handleFileUpload }) => (
       )}
     </div>
 
-    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    {/* <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
       <h3 className="text-sm font-semibold text-blue-900 mb-2">
         Resume Guidelines:
       </h3>
@@ -327,7 +329,7 @@ const Step3 = ({ formData, errors, updateFormData, handleFileUpload }) => (
           <span>Highlight key skills and achievements</span>
         </li>
       </ul>
-    </div>
+    </div> */}
   </div>
 );
 
@@ -375,19 +377,19 @@ const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplic
         <h3 className="font-semibold text-gray-900 mb-2">What's Next?</h3>
         <ul className="text-sm text-gray-600 space-y-2 text-left">
           <li className="flex items-start gap-2">
-            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
               1
             </div>
             <span>We'll review your application within 3-5 business days</span>
           </li>
           <li className="flex items-start gap-2">
-            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
               2
             </div>
             <span>You'll receive an email about the next steps</span>
           </li>
           <li className="flex items-start gap-2">
-            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
               3
             </div>
             <span>Check your spam folder if you don't hear from us</span>
@@ -408,6 +410,7 @@ const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplic
 
 // Main Application Form Component
 const ApplicationForm = () => {
+  const { slug } = useParams();
   const {
     currentStep,
     formData,
@@ -422,6 +425,17 @@ const ApplicationForm = () => {
 
   const [skillInput, setSkillInput] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
+
+  // Set job information when component mounts
+  useEffect(() => {
+    if (slug) {
+      const professional = professionals.find(p => p.slug === slug);
+      if (professional) {
+        updateFormData("jobSlug", slug);
+        updateFormData("jobRole", professional.name);
+      }
+    }
+  }, [slug]);
 
   // Handle skill addition
   const handleAddSkill = useCallback((e) => {
@@ -475,7 +489,7 @@ const ApplicationForm = () => {
   }, [applicationId]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50 py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 via-blue-50 to-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
           {currentStep < 4 && (
@@ -487,6 +501,11 @@ const ApplicationForm = () => {
                 <p className="text-gray-600">
                   Complete all steps to submit your application
                 </p>
+                {formData.jobRole && (
+                  <p className="text-sm text-blue-600 mt-2 font-medium">
+                    Applying for: {formData.jobRole}
+                  </p>
+                )}
               </div>
 
               <ProgressBar currentStep={currentStep} />

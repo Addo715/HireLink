@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useMemo } from "react";
 import { professionals, mainCategories } from "../assets/asset";
 
 const JobContext = createContext();
@@ -8,39 +8,53 @@ export const JobProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeTab, setActiveTab] = useState("services");
 
-  const filteredJobs = professionals.filter((job) => {
-    const matchesSearch =
-      job.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      job.services.some((service) =>
-        service.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+  const filteredJobs = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
 
-    const matchesCategory =
-      !selectedCategory ||
-      job.category === selectedCategory ||
-      job.role === selectedCategory ||
-      job.services.includes(selectedCategory);
+    return professionals.filter((job) => {
+      // ── Search filter ───────────────────────────────────────
+      let matchesSearch = true;
 
-    return matchesSearch && matchesCategory;
-  });
+      if (query) {
+        matchesSearch =
+          job.name?.toLowerCase().includes(query) ||
+          job.role?.toLowerCase().includes(query) ||
+          job.shortDescription?.toLowerCase().includes(query) ||
+          job.location?.toLowerCase().includes(query) ||
+          job.services?.some((s) => s.toLowerCase().includes(query));
+      }
 
-  return (
-    <JobContext.Provider
-      value={{
-        searchQuery,
-        setSearchQuery,
-        selectedCategory,
-        setSelectedCategory,
-        activeTab,
-        setActiveTab,
-        filteredJobs,
-        mainCategories,
-      }}
-    >
-      {children}
-    </JobContext.Provider>
-  );
+      // ── Category filter ─────────────────────────────────────
+      let matchesCategory = true;
+
+      if (selectedCategory) {
+        // Adjust these conditions based on YOUR actual data structure
+        matchesCategory =
+          job.services?.some(
+            (s) => s.toLowerCase() === selectedCategory.toLowerCase()
+          ) ||
+          job.role?.toLowerCase() === selectedCategory.toLowerCase() ||
+          // If you later add a real "category" field, add:
+          // job.category?.toLowerCase() === selectedCategory.toLowerCase() ||
+          false;
+      }
+
+      return matchesSearch && matchesCategory;
+    });
+  }, [professionals, searchQuery, selectedCategory]); // ← important deps
+
+  const value = {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    activeTab,
+    setActiveTab,
+    filteredJobs,
+    mainCategories,
+  };
+
+  return <JobContext.Provider value={value}>{children}</JobContext.Provider>;
 };
 
 export const useJobContext = () => useContext(JobContext);

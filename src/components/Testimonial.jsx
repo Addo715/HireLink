@@ -35,6 +35,7 @@ const Testimonial = () => {
   ];
 
   const TestimonialCard = ({ item }) => (
+    
     <div className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0 bg-white">
       <div className="flex gap-3 items-center">
         <img
@@ -68,7 +69,10 @@ const Testimonial = () => {
           animation: marqueeScroll 25s linear infinite;
         }
       `}</style>
-
+ <h1 className="text-center text-4xl font-bold text-gray-900 mt-5">Testimonials</h1>
+            <p className="text-center text-gray-500 mt-1">
+                We have collected some testimonials from our users. They are real people who have used our product.
+            </p>
       <div className="w-full mx-auto max-w-5xl overflow-hidden relative">
         {/* Left fade */}
         <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-linear-to-r from-white to-transparent"></div>

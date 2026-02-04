@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import logo from './samslist_logo_nov2024.avif'; 
+import logo from '../assets/work.svg'; 
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,9 +26,10 @@ const Navbar = () => {
           : "max-w-5xl rounded-full"
       }`}
     >
-      <a href="https://prebuiltui.com">
-        {/* <img src={logo} alt="logo" width={100} height={100} /> */}
-      </a>
+     <a href="/" className="flex items-center gap-2">
+  <img src={logo} alt="logo" className="w-10 h-10 md:w-12 md:h-12" />
+  <h1 className="text-blue-600 text-xl md:text-2xl font-bold">HireLink</h1>
+</a>
 
       {/* Menu */}
       <nav
@@ -55,31 +56,31 @@ const Navbar = () => {
           </svg>
         </button>
 
-        <a href="/accountants" className="hover:text-blue-600 transition">
-          Accountants
+        <a href="" className="hover:text-blue-600 transition">
+          Find Jobs
         </a>
-        <a href="/bookkeepers" className="hover:text-blue-600 transition">
-          Bookkeepers
+        <a href="" className="hover:text-blue-600 transition">
+          About Us
         </a>
-        <a href="/fractional-cfos" className="hover:text-blue-600 transition">
-          Fractional CFOs
+        <a href="" className="hover:text-blue-600 transition">
+         Companies
         </a>
-        <a href="/financial-advisors" className="hover:text-blue-600 transition">
-          Financial Advisors
+        <a href="" className="hover:text-blue-600 transition">
+          Contact
         </a>
 
         {/* Mobile buttons */}
         <div className="md:hidden flex flex-col gap-4 mt-8">
           <a
             className="bg-black text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-800 transition text-center"
-            href="/financial-professional-matching"
+            href="/Signup"
             onClick={() => setMenuOpen(false)}
           >
-            Take Quiz
+            Get Started
           </a>
           <a
             className="bg-black text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-700 transition text-center"
-            href="/login"
+            href=""
             onClick={() => setMenuOpen(false)}
           >
             Log in
@@ -91,16 +92,16 @@ const Navbar = () => {
       <div className="hidden md:flex items-center space-x-4">
         <a
           className="bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-800 transition"
-          href="/financial-professional-matching"
+          href=""
         >
-          Take Quiz
+          Get Started
         </a>
 
         <a
           className="cursor-pointer bg-black text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-700 transition"
-          href="/login"
+          href=""
         >
-          Log in
+          Login
         </a>
       </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Search, CheckCircle, MapPin } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useJobContext } from "../context/JobContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useJobContext } from "../context/JobContext.jsx";
 
 const ProfessionalCard = ({ professional }) => {
   const navigate = useNavigate();
@@ -178,11 +178,17 @@ const MatchCard = () => {
         </div>
 
         {filteredJobs.length > 8 && (
-          <div className="text-center pt-10">
-            <button className="px-10 cursor-pointer py-2.5 bg-black text-white rounded hover:bg-gray-800 transition-colors text-sm font-medium">
-              Load More
-            </button>
-          </div>
+         
+       <div className="text-center pt-10">
+  <a
+    href="/jobs"
+    className="inline-block px-10 py-2.5 bg-black text-white rounded hover:bg-gray-800 transition-colors text-sm font-medium cursor-pointer"
+  >
+    Load More
+  </a>
+</div>
+
+          
         )}
       </section>
     </div>

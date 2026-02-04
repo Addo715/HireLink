@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
   X, 
@@ -21,22 +21,26 @@ const AdminDashboard = () => {
   const [interviewTime, setInterviewTime] = useState('');
   const [showOffer, setShowOffer] = useState(false);
 
-  // Mock candidates data
-  const [candidates, setCandidates] = useState({
-    applied: [
-      { id: 1, name: 'John Doe', email: 'john@email.com', phone: '123-456-7890', experience: '5 years', skills: ['React', 'Node.js'] },
-      { id: 2, name: 'Jane Smith', email: 'jane@email.com', phone: '098-765-4321', experience: '3 years', skills: ['JavaScript', 'Python'] },
-    ],
-    reviewed: [
-      { id: 3, name: 'Mike Johnson', email: 'mike@email.com', phone: '555-123-4567', experience: '7 years', skills: ['React', 'TypeScript'], score: 4, notes: 'Strong candidate' },
-    ],
-    interview: [
-      { id: 4, name: 'Sarah Williams', email: 'sarah@email.com', phone: '444-555-6666', experience: '4 years', skills: ['Vue', 'CSS'], interviewDate: '2026-02-15', interviewTime: '10:00' },
-    ],
-    offer: [
-      { id: 5, name: 'Tom Brown', email: 'tom@email.com', phone: '777-888-9999', experience: '6 years', skills: ['Angular', 'Java'] },
-    ],
-  });
+  // Load candidates from localStorage
+  const loadCandidatesFromStorage = () => {
+    const stored = localStorage.getItem('candidates');
+    if (stored) {
+      return JSON.parse(stored);
+    }
+    return {
+      applied: [],
+      reviewed: [],
+      interview: [],
+      offer: [],
+    };
+  };
+
+  const [candidates, setCandidates] = useState(loadCandidatesFromStorage);
+
+  // Save candidates to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('candidates', JSON.stringify(candidates));
+  }, [candidates]);
 
   const stages = [
     { id: 'applied', name: 'Applied', icon: Users, count: candidates.applied.length },
@@ -255,6 +259,25 @@ const AdminDashboard = () => {
                       ))}
                     </div>
                   </div>
+                  {selectedCandidate.portfolioLink && (
+                    <div className="flex items-start">
+                      <span className="font-semibold text-gray-700 w-32">Portfolio:</span>
+                      <a 
+                        href={selectedCandidate.portfolioLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-700 underline"
+                      >
+                        {selectedCandidate.portfolioLink}
+                      </a>
+                    </div>
+                  )}
+                  {selectedCandidate.jobRole && (
+                    <div className="flex items-start">
+                      <span className="font-semibold text-gray-700 w-32">Applied For:</span>
+                      <span className="text-gray-900">{selectedCandidate.jobRole}</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -405,7 +428,7 @@ const AdminDashboard = () => {
                             make you an excellent fit for our team.
                           </p>
                           <div className="bg-gray-50 p-4 rounded-lg space-y-2 my-4">
-                            <p><strong>Position:</strong> Senior Developer</p>
+                            <p><strong>Position:</strong> {selectedCandidate.jobRole || 'Senior Developer'}</p>
                             <p><strong>Start Date:</strong> To Be Determined</p>
                             <p><strong>Salary:</strong> Competitive package based on experience</p>
                           </div>

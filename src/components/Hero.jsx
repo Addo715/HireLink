@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Briefcase, Code, PenTool, Users } from "lucide-react";
 
 const Hero = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Software Developers");
+  const [selectedCategory, setSelectedCategory] = useState(
+    "Software Developers",
+  );
 
   const categories = [
     { name: "Software Developers", icon: Code },
@@ -19,8 +21,9 @@ const Hero = () => {
             Hire Top Talent in Minutes
           </h1>
           <p className="text-gray-600 text-lg mb-8">
-            Join HireLink today and connect with top companies looking for skilled professionals. 
-            Apply, get hired, and grow your career faster than ever.
+            Join HireLink today and connect with top companies looking for
+            skilled professionals. Apply, get hired, and grow your career faster
+            than ever.
           </p>
 
           <div className="flex flex-wrap gap-4">
@@ -45,25 +48,25 @@ const Hero = () => {
 
           <div className="mt-10 flex flex-wrap gap-4">
             <a
-              href="/apply"
+              href="/jobs"
               className="bg-blue-600 text-white px-6 py-3 rounded-full font-medium text-sm hover:bg-blue-700 transition-all"
             >
               Apply Now
             </a>
             <a
-              href="/post-job"
+              href="/Signup"
               className="bg-white text-blue-600 px-6 py-3 rounded-full font-medium text-sm border border-blue-600 hover:bg-teal-50 transition-all"
             >
-              Post a Job
+              Get Started
             </a>
           </div>
         </div>
 
         <div className="hidden lg:block lg:w-1/2">
           <img
-            src="/hero-job-search.svg"
+            src="https://images.unsplash.com/photo-1629904853716-f0bc54eea481?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGpvYnxlbnwwfHwwfHx8MA%3D%3D"
             alt="Job search illustration"
-            className="w-full h-auto"
+            className="w-full h-auto rounded"
           />
         </div>
       </main>

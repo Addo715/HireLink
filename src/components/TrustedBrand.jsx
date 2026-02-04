@@ -1,20 +1,11 @@
 const TrustedBrand = () => {
-    const companiesLogo = [
-        { name: "Framer", logo: "https://saasly.prebuiltui.com/assets/companies-logo/framer.svg", },
-        { name: "Huawei", logo: "https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg", },
-        { name: "Instagram", logo: "https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg", },
-        { name: "Microsoft", logo: "https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg", },
-        { name: "Walmart", logo: "https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg", }
-    ];
+    const companyLogos = ["slack", "framer", "netflix", "google", "linkedin", "instagram", "facebook"];
+
     return (
         <>
             <style>{`
                 .marquee-inner {
-                    animation: marqueeScroll 15s linear infinite;
-                }
-
-                .marquee-inner-testimonials {
-                    animation: marqueeScroll 35s linear infinite;
+                    animation: marqueeScroll linear infinite;
                 }
 
                 @keyframes marqueeScroll {
@@ -26,21 +17,25 @@ const TrustedBrand = () => {
                         transform: translateX(-50%);
                     }
                 }
-            `}
-            </style>
-            <h3 className="text-base text-center text-slate-400 pb-14 font-medium">
-                Trusting by leading brands, including —
+            `}</style>
+
+              
+              {/* <div> */}
+                <h3 className="text-base text-center text-slate-400 pb-14 font-medium">
+                Trusting by leading brands, including 
             </h3>
-            <div class="overflow-hidden w-full relative max-w-5xl mx-auto select-none">
-                <div class="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-linear-to-r from-white to-transparent" />
-
-                <div class="flex marquee-inner will-change-transform max-w-5xl mx-auto">
-                    {[...companiesLogo, ...companiesLogo].map((company, index) => (
-                        <img key={index} className="mx-11" src={company.logo} alt={company.name} />
-                    ))}
+              {/* </div> */}
+            <div className="overflow-hidden w-full relative max-w-5xl mx-auto select-none mb-10">
+                <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-linear-to-r from-white to-transparent" />
+                <div className="marquee-inner flex will-change-transform min-w-[200%]" style={{ animationDuration: "15s" }}>
+                    <div className="flex">
+                        {[...companyLogos, ...companyLogos].map((company, index) => (
+                            <img key={index} src={`https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/companyLogo/${company}.svg`}
+                                alt={company} className="w-full h-full object-cover mx-6" draggable={false} />
+                        ))}
+                    </div>
                 </div>
-
-                <div class="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-linear-to-l from-white to-transparent" />
+                <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-linear-to-l from-white to-transparent" />
             </div>
         </>
     );

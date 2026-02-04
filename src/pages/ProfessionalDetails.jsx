@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, MapPin, CheckCircle, ArrowLeft, Building2, Briefcase } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { professionals } from '../assets/asset';
@@ -7,10 +7,16 @@ const ProfessionalDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
-  
+  const [hasApplied, setHasApplied] = useState(false);
 
   // Find the professional by slug
   const professional = professionals.find(p => p.slug === slug);
+
+  // Check if user has applied for this job
+  useEffect(() => {
+    const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs') || '[]');
+    setHasApplied(appliedJobs.includes(slug));
+  }, [slug]);
 
   if (!professional) {
     return (
@@ -29,24 +35,6 @@ const ProfessionalDetails = () => {
       </div>
     );
   }
-
-  // const renderStars = (rating) => {
-  //   return (
-  //     <div className="flex">
-  //       {[...Array(5)].map((_, i) => (
-  //         <Star
-  //           key={i}
-  //           size={16}
-  //           className={
-  //             i < Math.floor(rating)
-  //               ? 'fill-yellow-400 text-yellow-400'
-  //               : 'text-gray-300'
-  //           }
-  //         />
-  //       ))}
-  //     </div>
-  //   );
-  // };
 
   return (
     <div className="min-h-screen bg-white">
@@ -99,15 +87,6 @@ const ProfessionalDetails = () => {
                       </span>
                     )}
                   </div>
-                  
-                  {/* <div className="flex items-center gap-3 mt-4">
-                    <div className="flex items-center gap-2">
-                      {renderStars(professional.rating)}
-                      <span className="text-sm font-semibold text-gray-900">
-                        {professional.rating.toFixed(1)}
-                      </span>
-                    </div>
-                  </div> */}
 
                   <p className="text-gray-700 mt-3 italic">
                     "{professional.tagline}"
@@ -156,13 +135,23 @@ const ProfessionalDetails = () => {
               <h3 className="text-lg font-bold text-gray-900 mb-4">Apply for Job</h3>
               
               <div className="space-y-3 mb-6">
-                <button 
-                  onClick={() => navigate(`/apply/${professional.slug}`)}
-                  className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
-                >
-                  <Briefcase size={18} />
-                  Apply Now
-                </button>
+                {hasApplied ? (
+                  <button 
+                    disabled
+                    className="w-full cursor-not-allowed bg-green-600 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2 opacity-75"
+                  >
+                    <CheckCircle size={18} />
+                    Applied
+                  </button>
+                ) : (
+                  <button 
+                    onClick={() => navigate(`/apply/${professional.slug}`)}
+                    className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Briefcase size={18} />
+                    Apply Now
+                  </button>
+                )}
               </div>
 
               <div className="border-t border-gray-200 pt-4 space-y-3 text-sm">

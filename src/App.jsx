@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import ProfessionalDetails from "./pages/ProfessionalDetails";
 import ApplicationForm from "./pages/ApplicationForm";
 import AdminDashboard from "./pages/Admin/Admindashboard";
+import Jobs from "./pages/Jobs";
 // import AdminDashboard from "./pages/AdminDashboard";
 
 const App = () => {
@@ -17,11 +18,10 @@ const App = () => {
       {isHomePage && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route path="/:slug" element={<ProfessionalDetails />} />
         <Route path="/apply/:slug" element={<ApplicationForm />} />
         <Route path="/admin" element={<AdminDashboard />} />
-     
-        
       </Routes>
       {isHomePage && <Footer />}
     </div>

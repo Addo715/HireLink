@@ -6,15 +6,19 @@ import MatchCard from '../components/MatchCard'
 import FAQ from '../components/FAQ'
 import NewsLetter from '../components/NewsLetter'
 import Testimonials from '../components/Testimonial'
+import CallToAction from '../components/CallToAction'
+import AboutUs from '../components/AboutUs'
 
 const Home = () => {
   return (
     <div>
         <Hero/>
         <TrustedBrand/>
+        <AboutUs/>
         <QuickApply/>
         <MatchCard/>
         <Testimonials/>
+        <CallToAction/>
         {/* <FAQ/> */}
         <NewsLetter/>
       
