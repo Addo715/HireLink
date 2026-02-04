@@ -419,8 +419,11 @@ const ApplicationForm = () => {
   const [skillInput, setSkillInput] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
 
-  // Set job information when component mounts
+  // FIXED: Reset application state when slug changes (applying for different job)
   useEffect(() => {
+    // Reset the entire application when the job slug changes
+    resetApplication();
+    
     if (slug) {
       const professional = professionals.find(p => p.slug === slug);
       if (professional) {
@@ -428,7 +431,7 @@ const ApplicationForm = () => {
         updateFormData("jobRole", professional.name);
       }
     }
-  }, [slug]);
+  }, [slug, resetApplication, updateFormData]);
 
   // Store candidate ID when application is submitted
   useEffect(() => {
