@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import {
   User,
   Mail,
@@ -388,14 +388,6 @@ const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplic
         <Eye size={18} />
         View Dashboard
       </button>
-      
-      {/* <button
-        onClick={resetApplication}
-        className="flex-1 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium cursor-pointer"
-        type="button"
-      >
-        Apply Again
-      </button> */}
     </div>
   </div>
 );
@@ -418,20 +410,28 @@ const ApplicationForm = () => {
 
   const [skillInput, setSkillInput] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
+  const previousSlugRef = useRef(slug);
 
-  // FIXED: Reset application state when slug changes (applying for different job)
+  // FIXED: Reset application state only when slug changes (applying for different job)
   useEffect(() => {
-    // Reset the entire application when the job slug changes
-    resetApplication();
-    
-    if (slug) {
+    // Only reset if the slug actually changed
+    if (previousSlugRef.current !== slug) {
+      previousSlugRef.current = slug;
+      
+      // Reset if we're on the success page or if it's a different job
+      if (currentStep === 4 || formData.jobSlug !== slug) {
+        resetApplication();
+      }
+      
+      // Set the new job information
       const professional = professionals.find(p => p.slug === slug);
       if (professional) {
         updateFormData("jobSlug", slug);
         updateFormData("jobRole", professional.name);
       }
     }
-  }, [slug, resetApplication, updateFormData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]); // Only depend on slug
 
   // Store candidate ID when application is submitted
   useEffect(() => {

@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Briefcase, CheckCircle, XCircle, Clock, FileText, Eye } from "lucide-react";
+import { ArrowLeft, Briefcase, CheckCircle, XCircle, Clock, FileText, Eye, Copy, Check } from "lucide-react";
 
 const DashboardCandidate = () => {
   const navigate = useNavigate();
   const [applications, setApplications] = useState([]);
-  const [candidateId, setCandidateId] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [copiedId, setCopiedId] = useState(null);
 
   useEffect(() => {
-    // Load candidate ID from localStorage (set during application submission)
-    const storedCandidateId = localStorage.getItem("currentCandidateId");
-    setCandidateId(storedCandidateId || "");
-
-    // Load all applications for this candidate
-    loadApplications(storedCandidateId);
+    // Load all applications for this user
+    loadAllUserApplications();
   }, []);
 
-  const loadApplications = (candidateId) => {
-    if (!candidateId) return;
-
+  const loadAllUserApplications = () => {
     try {
       const stored = localStorage.getItem("candidates");
       const allCandidates = stored ? JSON.parse(stored) : {
@@ -38,12 +33,26 @@ const DashboardCandidate = () => {
         rejected: allCandidates.rejected || []
       };
       
-      // Find all applications for this candidate across all stages
+      // Get current user's email from the most recent application
+      const latestCandidateId = localStorage.getItem("currentCandidateId");
+      let currentUserEmail = "";
+      
+      // Find the user's email from any stage
+      Object.values(stages).forEach(stageApps => {
+        const userApp = stageApps.find(app => app.id === latestCandidateId);
+        if (userApp && userApp.email) {
+          currentUserEmail = userApp.email;
+        }
+      });
+      
+      setUserEmail(currentUserEmail);
+      
+      // Collect ALL applications from this user (matching by email)
       const userApplications = [];
       
       Object.keys(stages).forEach((stage) => {
         const stageApplications = stages[stage].filter(
-          (app) => app.id === candidateId
+          (app) => app.email === currentUserEmail
         );
         
         stageApplications.forEach((app) => {
@@ -54,6 +63,11 @@ const DashboardCandidate = () => {
         });
       });
 
+      // Sort by application date (most recent first)
+      userApplications.sort((a, b) => 
+        new Date(b.appliedDate) - new Date(a.appliedDate)
+      );
+
       setApplications(userApplications);
     } catch (error) {
       console.error('Error loading applications:', error);
@@ -61,31 +75,10 @@ const DashboardCandidate = () => {
     }
   };
 
-  const handleDeleteApplication = (applicationId) => {
-    try {
-      const stored = localStorage.getItem("candidates");
-      const allCandidates = stored ? JSON.parse(stored) : {
-        applied: [],
-        reviewed: [],
-        interview: [],
-        offer: [],
-        rejected: []
-      };
-      
-      // Remove from all stages
-      Object.keys(allCandidates).forEach((stage) => {
-        if (allCandidates[stage]) {
-          allCandidates[stage] = allCandidates[stage].filter(
-            (app) => app.id !== applicationId
-          );
-        }
-      });
-
-      localStorage.setItem("candidates", JSON.stringify(allCandidates));
-      loadApplications(candidateId);
-    } catch (error) {
-      console.error('Error deleting application:', error);
-    }
+  const copyToClipboard = (id) => {
+    navigator.clipboard.writeText(id);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
   };
 
   const getStatusConfig = (status) => {
@@ -145,13 +138,6 @@ const DashboardCandidate = () => {
                 Track your job applications and their status
               </p>
             </div>
-            
-            {candidateId && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
-                <p className="text-xs text-blue-600 font-medium">Candidate ID</p>
-                <p className="text-sm font-mono font-bold text-blue-900">{candidateId}</p>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -243,6 +229,9 @@ const DashboardCandidate = () => {
                         Job Position
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Candidate ID
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Applied Date
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -273,6 +262,25 @@ const DashboardCandidate = () => {
                                   Applied as {application.name}
                                 </div>
                               </div>
+                            </div>
+                          </td>
+
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="flex items-center gap-2">
+                              <div className="text-xs font-mono text-gray-600 max-w-[150px] truncate" title={application.id}>
+                                {application.id}
+                              </div>
+                              <button
+                                onClick={() => copyToClipboard(application.id)}
+                                className="p-1 hover:bg-gray-100 rounded transition-colors cursor-pointer"
+                                title="Copy Candidate ID"
+                              >
+                                {copiedId === application.id ? (
+                                  <Check size={14} className="text-green-600" />
+                                ) : (
+                                  <Copy size={14} className="text-gray-400" />
+                                )}
+                              </button>
                             </div>
                           </td>
                           
