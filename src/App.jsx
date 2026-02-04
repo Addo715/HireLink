@@ -8,7 +8,7 @@ import ApplicationForm from "./pages/ApplicationForm";
 import AdminDashboard from "./pages/Admin/Admindashboard";
 // import CandidateDashboard from "./pages/CandidateDashboard";
 import Jobs from "./pages/Jobs";
-import CandidateDashboard from "./pages/Candidatedashboard";
+import CandidateDashboard from "./pages/CandidateDashboard";
 
 const App = () => {
   const location = useLocation();
