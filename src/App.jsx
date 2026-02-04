@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import ProfessionalDetails from "./pages/ProfessionalDetails";
 import ApplicationForm from "./pages/ApplicationForm";
 import AdminDashboard from "./pages/Admin/Admindashboard";
-// import CandidateDashboard from "./pages/CandidateDashboard.";
+// import CandidateDashboard from "./pages/CandidateDashboard..";
 import Jobs from "./pages/Jobs";
 import DashboardCandidate from "./pages/DashboardCandidate";
 
