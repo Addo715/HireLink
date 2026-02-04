@@ -15,9 +15,10 @@ import {
   X,
   CheckCircle,
   Copy,
+  Eye,
 } from "lucide-react";
 import { useApplication } from "../context/ApplicationContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { professionals } from "../assets/asset";
 
 // Input Field Component
@@ -207,7 +208,7 @@ const Step2 = ({ formData, errors, updateFormData, skillInput, setSkillInput, ha
               {skill}
               <button
                 onClick={() => handleRemoveSkill(index)}
-                className="hover:text-blue-900 transition-colors"
+                className="hover:text-blue-900 transition-colors cursor-pointer"
                 type="button"
               >
                 <X size={14} />
@@ -272,7 +273,7 @@ const Step3 = ({ formData, errors, updateFormData, handleFileUpload }) => (
                 updateFormData("resume", null);
                 updateFormData("resumeFileName", "");
               }}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              className="text-sm text-blue-600 hover:text-blue-700 font-medium cursor-pointer"
               type="button"
             >
               Remove and upload different file
@@ -310,31 +311,11 @@ const Step3 = ({ formData, errors, updateFormData, handleFileUpload }) => (
         </div>
       )}
     </div>
-
-    {/* <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-      <h3 className="text-sm font-semibold text-blue-900 mb-2">
-        Resume Guidelines:
-      </h3>
-      <ul className="text-sm text-blue-800 space-y-1">
-        <li className="flex items-start gap-2">
-          <Check size={16} className="mt-0.5 shrink-0" />
-          <span>Include your contact information</span>
-        </li>
-        <li className="flex items-start gap-2">
-          <Check size={16} className="mt-0.5 shrink-0" />
-          <span>List relevant work experience</span>
-        </li>
-        <li className="flex items-start gap-2">
-          <Check size={16} className="mt-0.5 shrink-0" />
-          <span>Highlight key skills and achievements</span>
-        </li>
-      </ul>
-    </div> */}
   </div>
 );
 
 // Thank You Page Component
-const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplication }) => (
+const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplication, navigate }) => (
   <div className="text-center py-8">
     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
       <CheckCircle size={48} className="text-green-600" />
@@ -349,14 +330,14 @@ const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplic
     </p>
 
     <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8 max-w-md mx-auto">
-      <p className="text-sm text-gray-600 mb-2">Your Application ID</p>
+      <p className="text-sm text-gray-600 mb-2">Your Candidate ID</p>
       <div className="flex items-center justify-center gap-3">
         <p className="text-xl font-mono font-bold text-gray-900">
           {applicationId}
         </p>
         <button
           onClick={copyToClipboard}
-          className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
+          className="p-2 hover:bg-gray-200 rounded-lg transition-colors cursor-pointer"
           title="Copy to clipboard"
           type="button"
         >
@@ -368,7 +349,7 @@ const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplic
         </button>
       </div>
       <p className="text-xs text-gray-500 mt-2">
-        Save this ID for tracking your application
+        Save this ID to track all your applications
       </p>
     </div>
 
@@ -398,19 +379,31 @@ const ThankYouPage = ({ applicationId, copySuccess, copyToClipboard, resetApplic
       </div>
     </div>
 
-    <button
-      onClick={resetApplication}
-      className="mt-8 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium"
-      type="button"
-    >
-      Submit Another Application
-    </button>
+    <div className="flex flex-col sm:flex-row gap-3 mt-8 max-w-md mx-auto">
+      <button
+        onClick={() => navigate('/dashboard')}
+        className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer flex items-center justify-center gap-2"
+        type="button"
+      >
+        <Eye size={18} />
+        View Dashboard
+      </button>
+      
+      {/* <button
+        onClick={resetApplication}
+        className="flex-1 px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium cursor-pointer"
+        type="button"
+      >
+        Apply Again
+      </button> */}
+    </div>
   </div>
 );
 
 // Main Application Form Component
 const ApplicationForm = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const {
     currentStep,
     formData,
@@ -436,6 +429,13 @@ const ApplicationForm = () => {
       }
     }
   }, [slug]);
+
+  // Store candidate ID when application is submitted
+  useEffect(() => {
+    if (applicationId && currentStep === 4) {
+      localStorage.setItem("currentCandidateId", applicationId);
+    }
+  }, [applicationId, currentStep]);
 
   // Handle skill addition
   const handleAddSkill = useCallback((e) => {
@@ -546,6 +546,7 @@ const ApplicationForm = () => {
                 copySuccess={copySuccess}
                 copyToClipboard={copyToClipboard}
                 resetApplication={resetApplication}
+                navigate={navigate}
               />
             )}
           </div>
@@ -557,7 +558,7 @@ const ApplicationForm = () => {
                 onClick={previousStep}
                 disabled={currentStep === 1}
                 type="button"
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all cursor-pointer ${
                   currentStep === 1
                     ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -576,7 +577,7 @@ const ApplicationForm = () => {
                   }
                 }}
                 type="button"
-                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium"
+                className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all font-medium cursor-pointer"
               >
                 {currentStep === 3 ? "Submit Application" : "Next"}
                 <ArrowRight size={18} />
