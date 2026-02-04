@@ -6,9 +6,10 @@ import Home from "./pages/Home";
 import ProfessionalDetails from "./pages/ProfessionalDetails";
 import ApplicationForm from "./pages/ApplicationForm";
 import AdminDashboard from "./pages/Admin/Admindashboard";
-// import CandidateDashboard from "./pages/CandidateDashboard";
+import CandidateDashboard from "./pages/CandidateDashboard.";
 import Jobs from "./pages/Jobs";
-import CandidateDashboard from "./pages/CandidateDashboard";
+// import CandidateDashboard from "./pages/CandidateDashboard";
+// import CandidateDashboard from "./pages/CandidateDashboard";
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/:slug" element={<ProfessionalDetails />} />
         <Route path="/apply/:slug" element={<ApplicationForm />} />
         <Route path="/admin" element={<AdminDashboard />} />
+
 
         
       </Routes>
