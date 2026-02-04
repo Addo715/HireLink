@@ -104,7 +104,7 @@ const Step1 = ({ formData, errors, updateFormData }) => (
       icon={User}
       label="Full Name"
       type="text"
-      placeholder="John Doe"
+      placeholder="David Doe"
       value={formData.fullName}
       onChange={(e) => updateFormData("fullName", e.target.value)}
       error={errors.fullName}
@@ -115,7 +115,7 @@ const Step1 = ({ formData, errors, updateFormData }) => (
       icon={Mail}
       label="Email Address"
       type="email"
-      placeholder="john.doe@example.com"
+      placeholder="david.doe@example.com"
       value={formData.email}
       onChange={(e) => updateFormData("email", e.target.value)}
       error={errors.email}
@@ -125,7 +125,7 @@ const Step1 = ({ formData, errors, updateFormData }) => (
       icon={Phone}
       label="Phone Number"
       type="tel"
-      placeholder="+1 (555) 123-4567"
+      placeholder="+233 (555) 123-4567"
       value={formData.phone}
       onChange={(e) => updateFormData("phone", e.target.value)}
       error={errors.phone}
