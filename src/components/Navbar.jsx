@@ -28,7 +28,7 @@ const Navbar = () => {
     >
      <a href="/" className="flex items-center gap-2">
   <img src={logo} alt="logo" className="w-10 h-10 md:w-12 md:h-12" />
-  <h1 className="text-blue-600 text-xl md:text-2xl font-bold">HireLink</h1>
+  <h1 className="text-blue-600 text-2xl md:text-2xl font-bold">HireLink</h1>
 </a>
 
       {/* Menu */}
