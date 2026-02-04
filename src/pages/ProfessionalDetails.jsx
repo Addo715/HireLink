@@ -9,6 +9,10 @@ const ProfessionalDetails = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [hasApplied, setHasApplied] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
+
   // Find the professional by slug
   const professional = professionals.find(p => p.slug === slug);
 
