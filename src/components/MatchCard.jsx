@@ -1,5 +1,5 @@
 import React from "react";
-import { Search, Star, CheckCircle } from "lucide-react";
+import { Search, CheckCircle, MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useJobContext } from "../context/JobContext";
 
@@ -28,25 +28,14 @@ const ProfessionalCard = ({ professional }) => {
         )}
       </div>
 
-      <div className="flex items-center gap-2 mb-3">
-        <div className="flex">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              size={14}
-              className={
-                i < Math.floor(professional.rating)
-                  ? "fill-yellow-400 text-yellow-400"
-                  : "text-gray-300"
-              }
-            />
-          ))}
-        </div>
-        <span className="text-sm font-medium text-gray-900">
-          {professional.rating.toFixed(1)}
-        </span>
-        <span className="text-sm text-gray-500">({professional.reviewCount})</span>
+      <div className="flex items-center gap-1 mb-3">
+        <MapPin size={14} className="text-gray-500" />
+        <span className="text-sm text-gray-600">{professional.location}</span>
       </div>
+
+      <p className="text-sm text-gray-700 mb-4 line-clamp-2">
+        {professional.shortDescription}
+      </p>
 
       <div className="flex flex-wrap gap-2 mb-4">
         {professional.services.slice(0, 3).map((service, index) => (
@@ -63,7 +52,7 @@ const ProfessionalCard = ({ professional }) => {
         onClick={() => navigate(`/${professional.slug}`)}
         className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2.5 rounded transition-colors text-center cursor-pointer"
       >
-        View Profile
+        View Details
       </button>
     </div>
   );
@@ -79,8 +68,10 @@ const MatchCard = () => {
     setActiveTab,
     filteredJobs,
     mainCategories,
-    // serviceCategories,
   } = useJobContext();
+
+  // Limit to 8 jobs
+  const displayedJobs = filteredJobs.slice(0, 6);
 
   return (
     <div className="min-h-screen bg-white pt-10">
@@ -150,37 +141,15 @@ const MatchCard = () => {
               />
             </div>
           </div>
-
-          {/* Service Categories */}
-          {/* <div className="pb-4 flex flex-col items-center">
-            <p className="text-xs text-gray-500 mb-3">Popular:</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {serviceCategories.map((service) => (
-                <button
-                  key={service}
-                  onClick={() =>
-                    setSelectedCategory(selectedCategory === service ? null : service)
-                  }
-                  className={`px-3 cursor-pointer py-1.5 rounded text-xs font-medium transition-colors ${
-                    selectedCategory === service
-                      ? "bg-blue-600 text-white"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-300"
-                  }`}
-                >
-                  {service}
-                </button>
-              ))}
-            </div>
-          </div> */}
         </div>
       </div>
 
       {/* Job Results */}
       <section className="bg-gray-50 px-4 sm:px-10 py-8">
         <div className="max-w-7xl mx-auto">
-          {filteredJobs.length > 0 ? (
+          {displayedJobs.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {filteredJobs.map((job) => (
+              {displayedJobs.map((job) => (
                 <ProfessionalCard key={job.id} professional={job} />
               ))}
             </div>
@@ -208,11 +177,13 @@ const MatchCard = () => {
           )}
         </div>
 
-        <div className="text-center pt-10">
-          <button className="px-10 cursor-pointer py-2.5 bg-black text-white rounded transition-colors text-sm font-medium">
-            More
-          </button>
-        </div>
+        {filteredJobs.length > 8 && (
+          <div className="text-center pt-10">
+            <button className="px-10 cursor-pointer py-2.5 bg-black text-white rounded hover:bg-gray-800 transition-colors text-sm font-medium">
+              Load More
+            </button>
+          </div>
+        )}
       </section>
     </div>
   );

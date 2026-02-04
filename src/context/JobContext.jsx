@@ -1,7 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import { professionals, mainCategories, serviceCategories } from "../assets/asset";
-
-
+import { professionals, mainCategories } from "../assets/asset";
 
 const JobContext = createContext();
 
@@ -10,22 +8,22 @@ export const JobProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [activeTab, setActiveTab] = useState("services");
 
-const filteredJobs = professionals.filter((job) => {
-  const matchesSearch =
-    job.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    job.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    job.services.some((service) =>
-      service.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  const filteredJobs = professionals.filter((job) => {
+    const matchesSearch =
+      job.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.services.some((service) =>
+        service.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
-  const matchesCategory =
-    !selectedCategory ||
-    job.category === selectedCategory ||
-    job.role === selectedCategory ||
-    job.services.includes(selectedCategory);
+    const matchesCategory =
+      !selectedCategory ||
+      job.category === selectedCategory ||
+      job.role === selectedCategory ||
+      job.services.includes(selectedCategory);
 
-  return matchesSearch && matchesCategory;
-});
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <JobContext.Provider
@@ -38,7 +36,6 @@ const filteredJobs = professionals.filter((job) => {
         setActiveTab,
         filteredJobs,
         mainCategories,
-        serviceCategories,
       }}
     >
       {children}

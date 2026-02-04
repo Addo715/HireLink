@@ -2,7 +2,9 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
-import ProfessionalDetails from './components/Professionaldetails';
+import ProfessionalDetails from './pages/ProfessionalDetails'
+import ApplicationForm from './pages/ApplicationForm'
+
 
 
 const App = () => {
@@ -13,6 +15,10 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home/>}/>
          <Route path="/:slug" element={<ProfessionalDetails />} />
+       
+            <Route path="/apply/:slug" element={<ApplicationForm />} />
+            
+      
         
 
       </Routes>
