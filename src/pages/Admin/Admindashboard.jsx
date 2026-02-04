@@ -562,7 +562,6 @@
 // };
 
 // export default AdminDashboard;
-
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
@@ -573,7 +572,7 @@ import {
   Send,
   Star,
   ChevronRight,
-  // XCircle    ← commented out
+  XCircle
 } from 'lucide-react';
 
 const AdminDashboard = () => {
@@ -586,54 +585,71 @@ const AdminDashboard = () => {
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('');
   const [showOffer, setShowOffer] = useState(false);
-  // const [showRejectConfirm, setShowRejectConfirm] = useState(false);  ← commented out
+  const [showRejectConfirm, setShowRejectConfirm] = useState(false);
 
-  // Load candidates from localStorage
-  const loadCandidatesFromStorage = () => {
+  // Initialize candidates from localStorage or with empty structure
+  const [candidates, setCandidates] = useState(() => {
     try {
       const stored = localStorage.getItem('candidates');
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Ensure all required stages exist (removed rejected)
         return {
           applied: parsed.applied || [],
           reviewed: parsed.reviewed || [],
           interview: parsed.interview || [],
           offer: parsed.offer || [],
-          // rejected: parsed.rejected || [],  ← commented out
+          rejected: parsed.rejected || [],
         };
       }
     } catch (error) {
       console.error('Error loading candidates:', error);
     }
     
-    // Default structure (removed rejected)
     return {
       applied: [],
       reviewed: [],
       interview: [],
       offer: [],
-      // rejected: [],  ← commented out
+      rejected: [],
     };
-  };
+  });
 
-  const [candidates, setCandidates] = useState(loadCandidatesFromStorage);
-
-  // Save candidates to localStorage whenever they change
+  // Save to localStorage whenever candidates change
   useEffect(() => {
     try {
       localStorage.setItem('candidates', JSON.stringify(candidates));
+      console.log('Candidates saved to localStorage:', candidates);
     } catch (error) {
       console.error('Error saving candidates:', error);
     }
   }, [candidates]);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('candidates');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setCandidates({
+          applied: parsed.applied || [],
+          reviewed: parsed.reviewed || [],
+          interview: parsed.interview || [],
+          offer: parsed.offer || [],
+          rejected: parsed.rejected || [],
+        });
+        console.log('Candidates loaded from localStorage:', parsed);
+      }
+    } catch (error) {
+      console.error('Error loading candidates:', error);
+    }
+  }, []);
 
   const stages = [
     { id: 'applied', name: 'Applied', icon: Users, count: candidates?.applied?.length || 0 },
     { id: 'reviewed', name: 'Reviewed', icon: FileText, count: candidates?.reviewed?.length || 0 },
     { id: 'interview', name: 'Interview Scheduled', icon: Calendar, count: candidates?.interview?.length || 0 },
     { id: 'offer', name: 'Offer Sent', icon: Send, count: candidates?.offer?.length || 0 },
-    // { id: 'rejected', name: 'Rejected', icon: XCircle, count: candidates?.rejected?.length || 0 },  ← commented out
+    { id: 'rejected', name: 'Rejected', icon: XCircle, count: candidates?.rejected?.length || 0 },
   ];
 
   // Move candidate to next stage
@@ -643,11 +659,16 @@ const AdminDashboard = () => {
       if (!newState[fromStage]) newState[fromStage] = [];
       if (!newState[toStage]) newState[toStage] = [];
       
-      return {
+      const updated = {
         ...newState,
         [fromStage]: newState[fromStage].filter(c => c.id !== candidate.id),
         [toStage]: [...newState[toStage], candidate]
       };
+      
+      // Immediately save to localStorage
+      localStorage.setItem('candidates', JSON.stringify(updated));
+      
+      return updated;
     });
   };
 
@@ -677,16 +698,20 @@ const AdminDashboard = () => {
     setSelectedCandidate(null);
   };
 
-  // // Handle rejection ← completely commented out
-  // const rejectCandidate = (candidate) => {
-  //   let fromStage = 'applied';
-  //   if (candidates.reviewed && candidates.reviewed.some(c => c.id === candidate.id)) fromStage = 'reviewed';
-  //   if (candidates.interview && candidates.interview.some(c => c.id === candidate.id)) fromStage = 'interview';
-  //   
-  //   moveToStage(candidate, fromStage, 'rejected');
-  //   setShowRejectConfirm(false);
-  //   setSelectedCandidate(null);
-  // };
+  // Handle rejection - can be done from any stage
+  const rejectCandidate = (candidate) => {
+    let currentStage = activeStage;
+    
+    const updatedCandidate = { 
+      ...candidate, 
+      rejectedDate: new Date().toISOString(),
+      rejectedFrom: currentStage 
+    };
+    
+    moveToStage(updatedCandidate, currentStage, 'rejected');
+    setShowRejectConfirm(false);
+    setSelectedCandidate(null);
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -827,7 +852,7 @@ const AdminDashboard = () => {
                   setSelectedCandidate(null);
                   setShowScheduler(false);
                   setShowOffer(false);
-                  // setShowRejectConfirm(false);  ← commented out
+                  setShowRejectConfirm(false);
                 }}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
               >
@@ -888,43 +913,8 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Reject Button - Commented out */}
-              {/* {(activeStage === 'applied' || activeStage === 'reviewed' || activeStage === 'interview') && !showRejectConfirm && (
-                <button
-                  onClick={() => setShowRejectConfirm(true)}
-                  className="w-full cursor-pointer bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl transition-colors font-bold text-lg flex items-center justify-center gap-2"
-                >
-                  <XCircle size={20} />
-                  Reject Candidate
-                </button>
-              )} */}
-
-              {/* Reject Confirmation - Completely commented out */}
-              {/* {showRejectConfirm && (
-                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-                  <h4 className="font-bold text-red-900 mb-3 text-lg">Confirm Rejection</h4>
-                  <p className="text-red-800 mb-4">
-                    Are you sure you want to reject this candidate? This action will move them to the rejected stage.
-                  </p>
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => setShowRejectConfirm(false)}
-                      className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors cursor-pointer"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={() => rejectCandidate(selectedCandidate)}
-                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors cursor-pointer"
-                    >
-                      Confirm Rejection
-                    </button>
-                  </div>
-                </div>
-              )} */}
-
               {/* Score & Notes (Applied Stage) */}
-              {activeStage === 'applied' /* && !showRejectConfirm */ && (
+              {activeStage === 'applied' && !showRejectConfirm && (
                 <>
                   <div>
                     <label className="block font-bold text-gray-900 mb-3 text-lg">
@@ -970,7 +960,7 @@ const AdminDashboard = () => {
               )}
 
               {/* Interview Scheduler (Reviewed Stage) */}
-              {activeStage === 'reviewed' /* && !showRejectConfirm */ && (
+              {activeStage === 'reviewed' && !showRejectConfirm && (
                 <>
                   {selectedCandidate.score && (
                     <div className="bg-blue-50 border border-blue-200 p-5 rounded-xl">
@@ -1034,7 +1024,7 @@ const AdminDashboard = () => {
               )}
 
               {/* Offer Stage */}
-              {activeStage === 'interview' /* && !showRejectConfirm */ && (
+              {activeStage === 'interview' && !showRejectConfirm && (
                 <>
                   {selectedCandidate.interviewDate && (
                     <div className="bg-green-50 border border-green-200 p-5 rounded-xl">
@@ -1096,7 +1086,7 @@ const AdminDashboard = () => {
               )}
 
               {/* Offer Sent Stage */}
-              {activeStage === 'offer' && (
+              {activeStage === 'offer' && !showRejectConfirm && (
                 <div className="bg-green-50 border-2 border-green-300 rounded-xl p-6 text-center">
                   <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Send size={32} className="text-green-600" />
@@ -1106,16 +1096,58 @@ const AdminDashboard = () => {
                 </div>
               )}
 
-              {/* Rejected Stage - Commented out */}
-              {/* {activeStage === 'rejected' && (
+              {/* Rejected Stage */}
+              {activeStage === 'rejected' && (
                 <div className="bg-red-50 border-2 border-red-300 rounded-xl p-6 text-center">
                   <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
                     <XCircle size={32} className="text-red-600" />
                   </div>
                   <p className="text-red-800 font-bold text-lg">Candidate Rejected</p>
                   <p className="text-red-700 mt-2">This candidate was not selected for the position.</p>
+                  {selectedCandidate.rejectedFrom && (
+                    <p className="text-red-600 text-sm mt-2">
+                      Rejected from: <span className="font-semibold">{selectedCandidate.rejectedFrom}</span> stage
+                    </p>
+                  )}
                 </div>
-              )} */}
+              )}
+
+              {/* Reject Confirmation Modal */}
+              {showRejectConfirm && (
+                <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+                  <h4 className="font-bold text-red-900 mb-3 text-lg">Confirm Rejection</h4>
+                  <p className="text-red-800 mb-4">
+                    Are you sure you want to reject this candidate? This action will move them to the rejected stage and they will see this status in their dashboard.
+                  </p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setShowRejectConfirm(false)}
+                      className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => rejectCandidate(selectedCandidate)}
+                      className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors cursor-pointer"
+                    >
+                      Confirm Rejection
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Reject Button - Show at bottom for applied, reviewed, interview, and offer stages */}
+              {(activeStage === 'applied' || activeStage === 'reviewed' || activeStage === 'interview' || activeStage === 'offer') && !showRejectConfirm && (
+                <div className="pt-4 border-t border-gray-200">
+                  <button
+                    onClick={() => setShowRejectConfirm(true)}
+                    className="w-full cursor-pointer bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl transition-colors font-bold text-lg flex items-center justify-center gap-2"
+                  >
+                    <XCircle size={20} />
+                    Reject Candidate
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

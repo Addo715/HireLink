@@ -8,9 +8,16 @@ const DashboardCandidate = () => {
   const [userEmail, setUserEmail] = useState("");
   const [copiedId, setCopiedId] = useState(null);
 
+  // Load applications on mount and whenever localStorage changes
   useEffect(() => {
-    // Load all applications for this user
     loadAllUserApplications();
+    
+    // Set up an interval to check for updates (optional, for real-time sync)
+    const interval = setInterval(() => {
+      loadAllUserApplications();
+    }, 2000); // Check every 2 seconds
+    
+    return () => clearInterval(interval);
   }, []);
 
   const loadAllUserApplications = () => {
@@ -45,6 +52,11 @@ const DashboardCandidate = () => {
         }
       });
       
+      // If no email found via ID, try to get it from localStorage directly
+      if (!currentUserEmail) {
+        currentUserEmail = localStorage.getItem("currentUserEmail") || "";
+      }
+      
       setUserEmail(currentUserEmail);
       
       // Collect ALL applications from this user (matching by email)
@@ -64,11 +76,15 @@ const DashboardCandidate = () => {
       });
 
       // Sort by application date (most recent first)
-      userApplications.sort((a, b) => 
-        new Date(b.appliedDate) - new Date(a.appliedDate)
-      );
+      userApplications.sort((a, b) => {
+        const dateA = new Date(a.appliedDate || 0);
+        const dateB = new Date(b.appliedDate || 0);
+        return dateB - dateA;
+      });
 
       setApplications(userApplications);
+      
+      console.log('Loaded applications for user:', currentUserEmail, userApplications);
     } catch (error) {
       console.error('Error loading applications:', error);
       setApplications([]);
@@ -137,6 +153,11 @@ const DashboardCandidate = () => {
               <p className="text-gray-600 mt-1">
                 Track your job applications and their status
               </p>
+              {userEmail && (
+                <p className="text-sm text-gray-500 mt-1">
+                  Logged in as: {userEmail}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -286,11 +307,15 @@ const DashboardCandidate = () => {
                           
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-900">
-                              {new Date(application.appliedDate).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric'
-                              })}
+                              {application.appliedDate ? (
+                                new Date(application.appliedDate).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric'
+                                })
+                              ) : (
+                                'N/A'
+                              )}
                             </div>
                           </td>
 
@@ -316,8 +341,10 @@ const DashboardCandidate = () => {
                             <div className="flex items-center gap-3">
                               {application.status === 'offer' && (
                                 <button
-                                  onClick={() => {/* View offer letter */}}
-                                  className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
+                                  onClick={() => {
+                                    alert('Offer letter viewing feature coming soon!');
+                                  }}
+                                  className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1 cursor-pointer"
                                 >
                                   <Eye size={16} />
                                   View Offer

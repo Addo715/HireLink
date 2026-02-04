@@ -63,10 +63,10 @@ const Navbar = () => {
           About Us
         </a>
         <a href="" className="hover:text-blue-600 transition">
-         Companies
-        </a>
-        <a href="" className="hover:text-blue-600 transition">
           Contact
+        </a>
+        <a href="/dashboard" className="hover:text-blue-600 transition">
+         Dashboard
         </a>
 
         {/* Mobile buttons */}
