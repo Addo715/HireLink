@@ -61,6 +61,7 @@ yarn preview
 ```
 
 The application will be available at `http://localhost:5173`
+"The application is now live at  `https://hirelink-pi.vercel.app/`
 
 ## Architecture & Design Decisions
 
