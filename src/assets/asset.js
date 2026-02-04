@@ -1,20 +1,28 @@
 // professional data with job descriptions
 export const professionals = [
   {
-    id: '1',
-    name: 'TechNova Solutions',
-    slug: 'technova-solutions',
-    role: 'Software Developer',
-    logo: 'https://ui-avatars.com/api/?name=TechNova&size=200&background=14b8a6&color=fff&bold=true',
+    id: "1",
+    name: "TechNova Solutions",
+    slug: "technova-solutions",
+    role: "Software Developer",
+    logo: "https://ui-avatars.com/api/?name=TechNova&size=200&background=14b8a6&color=fff&bold=true",
     rating: 4.9,
-    services: ['Frontend Development', 'Backend Development', 'Fullstack Projects', 'Mobile Apps', 'API Integration', 'Code Review'],
+    services: [
+      "Frontend Development",
+      "Backend Development",
+      "Fullstack Projects",
+      "Mobile Apps",
+      "API Integration",
+      "Code Review",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Software Developer',
-    location: 'San Francisco, CA',
+    status: "verified",
+    category: "Software Developer",
+    location: "San Francisco, CA",
     yearsExperience: 8,
-    tagline: 'Building scalable web applications for modern businesses',
-    shortDescription: 'Join our team to design and develop scalable web applications using React, Node.js, and cloud infrastructure. Work on innovative projects that impact millions of users.',
+    tagline: "Building scalable web applications for modern businesses",
+    shortDescription:
+      "Join our team to design and develop scalable web applications using React, Node.js, and cloud infrastructure. Work on innovative projects that impact millions of users.",
     description: `We are seeking an experienced Software Developer to join our growing team at TechNova Solutions. In this role, you will be responsible for designing, developing, and maintaining scalable web applications using modern technologies including React, Node.js, and cloud infrastructure.
 
 Key Responsibilities:
@@ -41,23 +49,36 @@ What We Offer:
 • Flexible work arrangements
 • Professional development opportunities
 • Collaborative and innovative work environment`,
-    expertise: ['React & Vue.js', 'Node.js & Python', 'AWS & Azure', 'Mobile Development']
+    expertise: [
+      "React & Vue.js",
+      "Node.js & Python",
+      "AWS & Azure",
+      "Mobile Development",
+    ],
   },
-  {         
-    id: '2',
-    name: 'Creative Minds Agency',
-    slug: 'creative-minds-agency',
-    role: 'Designer',
-    logo: 'https://ui-avatars.com/api/?name=Creative+Minds&size=200&background=0ea5e9&color=fff&bold=true',
+  {
+    id: "2",
+    name: "Creative Minds Agency",
+    slug: "creative-minds-agency",
+    role: "Designer",
+    logo: "https://ui-avatars.com/api/?name=Creative+Minds&size=200&background=0ea5e9&color=fff&bold=true",
     rating: 4.8,
-    services: ['UI Design', 'UX Research', ' Design Systems', 'Web Design', 'Mobile Design', 'Branding'],
+    services: [
+      "UI Design",
+      "UX Research",
+      " Design Systems",
+      "Web Design",
+      "Mobile Design",
+      "Branding",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Designer',
-    location: 'New York, NY',
+    status: "verified",
+    category: "Designer",
+    location: "New York, NY",
     yearsExperience: 10,
-    tagline: 'Creating beautiful, user-centered designs that convert',
-    shortDescription: 'Create compelling digital experiences that delight users and drive results. Design intuitive interfaces for web and mobile applications with a talented creative team.',
+    tagline: "Creating beautiful, user-centered designs that convert",
+    shortDescription:
+      "Create compelling digital experiences that delight users and drive results. Design intuitive interfaces for web and mobile applications with a talented creative team.",
     description: `Creative Minds Agency is looking for a talented Designer to create compelling digital experiences that delight users and drive business results. You will work on diverse projects ranging from mobile apps to enterprise web applications.
 
 Key Responsibilities:
@@ -86,23 +107,36 @@ What We Offer:
 • Creative and collaborative team culture
 • Opportunities for career growth
 • Hybrid work model`,
-    expertise: ['Product Design', 'Brand Strategy', 'User Research', 'Design Systems']
+    expertise: [
+      "Product Design",
+      "Brand Strategy",
+      "User Research",
+      "Design Systems",
+    ],
   },
   {
-    id: '3',
-    name: 'MarketBoost Co.',
-    slug: 'marketboost-co',
-    role: 'Marketer',
-    logo: 'https://ui-avatars.com/api/?name=MarketBoost&size=200&background=8b5cf6&color=fff&bold=true',
+    id: "3",
+    name: "MarketBoost Co.",
+    slug: "marketboost-co",
+    role: "Marketer",
+    logo: "https://ui-avatars.com/api/?name=MarketBoost&size=200&background=8b5cf6&color=fff&bold=true",
     rating: 4.7,
-    services: ['Social Media Marketing', 'SEO', 'Email Campaigns', 'Content Marketing', 'PPC Advertising', 'Analytics'],
+    services: [
+      "Social Media Marketing",
+      "SEO",
+      "Email Campaigns",
+      "Content Marketing",
+      "PPC Advertising",
+      "Analytics",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Marketer',
-    location: 'Austin, TX',
+    status: "verified",
+    category: "Marketer",
+    location: "Austin, TX",
     yearsExperience: 7,
-    tagline: 'Data-driven marketing strategies that deliver results',
-    shortDescription: 'Help businesses grow through strategic digital marketing campaigns. Manage SEO, SEM, and social media to deliver measurable ROI for diverse clients.',
+    tagline: "Data-driven marketing strategies that deliver results",
+    shortDescription:
+      "Help businesses grow through strategic digital marketing campaigns. Manage SEO, SEM, and social media to deliver measurable ROI for diverse clients.",
     description: `Join MarketBoost Co. as a Digital Marketing Specialist and help businesses grow through strategic, data-driven marketing campaigns. You'll manage multi-channel campaigns and deliver measurable ROI for our diverse client portfolio.
 
 Key Responsibilities:
@@ -132,23 +166,36 @@ What We Offer:
 • Professional development and certification opportunities
 • Flexible work schedule
 • Dynamic team environment`,
-    expertise: ['E-commerce Marketing', 'B2B Marketing', 'Local SEO', 'Growth Hacking']
+    expertise: [
+      "E-commerce Marketing",
+      "B2B Marketing",
+      "Local SEO",
+      "Growth Hacking",
+    ],
   },
   {
-    id: '4',
-    name: 'Visionary Project Management',
-    slug: 'visionary-pm',
-    role: 'Project Manager',
-    logo: 'https://ui-avatars.com/api/?name=Visionary+PM&size=200&background=f59e0b&color=fff&bold=true',
+    id: "4",
+    name: "Visionary Project Management",
+    slug: "visionary-pm",
+    role: "Project Manager",
+    logo: "https://ui-avatars.com/api/?name=Visionary+PM&size=200&background=f59e0b&color=fff&bold=true",
     rating: 4.9,
-    services: ['Agile Management', 'Scrum Facilitation', 'Team Coordination', 'Project Planning', 'Risk Management', 'Stakeholder Communication'],
+    services: [
+      "Agile Management",
+      "Scrum Facilitation",
+      "Team Coordination",
+      "Project Planning",
+      "Risk Management",
+      "Stakeholder Communication",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Project Manager',
-    location: 'Boston, MA',
+    status: "verified",
+    category: "Project Manager",
+    location: "Boston, MA",
     yearsExperience: 12,
-    tagline: 'Delivering complex projects on time and on budget',
-    shortDescription: 'Lead complex software development projects with cross-functional teams. Utilize Agile methodologies to deliver high-quality solutions on time and within budget.',
+    tagline: "Delivering complex projects on time and on budget",
+    shortDescription:
+      "Lead complex software development projects with cross-functional teams. Utilize Agile methodologies to deliver high-quality solutions on time and within budget.",
     description: `We are seeking an experienced Project Manager to lead complex software development projects and drive successful outcomes. You will work with cross-functional teams to deliver high-quality solutions on time and within budget.
 
 Key Responsibilities:
@@ -179,22 +226,35 @@ What We Offer:
 • Professional development and certification support
 • Flexible remote work options
 • Collaborative and supportive team culture`,
-    expertise: ['Software Projects', 'Digital Transformation', 'Remote Teams', 'Enterprise PM']
+    expertise: [
+      "Software Projects",
+      "Digital Transformation",
+      "Remote Teams",
+      "Enterprise PM",
+    ],
   },
   {
-    id: '5',
-    name: 'DataWorks Analytics',
-    slug: 'dataworks-analytics',
-    role: 'Data Analyst',
-    logo: 'https://ui-avatars.com/api/?name=DataWorks&size=200&background=ef4444&color=fff&bold=true',
+    id: "5",
+    name: "DataWorks Analytics",
+    slug: "dataworks-analytics",
+    role: "Data Analyst",
+    logo: "https://ui-avatars.com/api/?name=DataWorks&size=200&background=ef4444&color=fff&bold=true",
     rating: 4.6,
-    services: ['Data Visualization', 'SQL & Python Analysis', 'Reporting', 'Business Intelligence', 'Predictive Analytics', 'Dashboard Creation'],
+    services: [
+      "Data Visualization",
+      "SQL & Python Analysis",
+      "Reporting",
+      "Business Intelligence",
+      "Predictive Analytics",
+      "Dashboard Creation",
+    ],
     verified: false,
-    category: 'Data Analyst',
-    location: 'Seattle, WA',
+    category: "Data Analyst",
+    location: "Seattle, WA",
     yearsExperience: 6,
-    tagline: 'Turning data into actionable business insights',
-    shortDescription: 'Transform raw data into meaningful insights that drive business decisions. Analyze complex datasets, create visualizations, and develop reports for stakeholders.',
+    tagline: "Turning data into actionable business insights",
+    shortDescription:
+      "Transform raw data into meaningful insights that drive business decisions. Analyze complex datasets, create visualizations, and develop reports for stakeholders.",
     description: `DataWorks Analytics is hiring a Data Analyst to transform raw data into meaningful insights that drive business decisions. You'll work with large datasets, create visualizations, and develop reports for various stakeholders.
 
 Key Responsibilities:
@@ -224,23 +284,36 @@ What We Offer:
 • Work on impactful projects across industries
 • Collaborative team environment
 • Remote-friendly workplace`,
-    expertise: ['Business Intelligence', 'E-commerce Analytics', 'Marketing Analytics', 'Financial Analysis']
+    expertise: [
+      "Business Intelligence",
+      "E-commerce Analytics",
+      "Marketing Analytics",
+      "Financial Analysis",
+    ],
   },
   {
-    id: '6',
-    name: 'NextGen Tech Labs',
-    slug: 'nextgen-tech-labs',
-    role: 'Software Engineer',
-    logo: 'https://ui-avatars.com/api/?name=NextGen+Tech&size=200&background=06b6d4&color=fff&bold=true',
+    id: "6",
+    name: "NextGen Tech Labs",
+    slug: "nextgen-tech-labs",
+    role: "Software Engineer",
+    logo: "https://ui-avatars.com/api/?name=NextGen+Tech&size=200&background=06b6d4&color=fff&bold=true",
     rating: 5.0,
-    services: ['Fullstack Development', 'Cloud Deployment', 'API Integration', 'DevOps', 'Microservices', 'Performance Optimization'],
+    services: [
+      "Fullstack Development",
+      "Cloud Deployment",
+      "API Integration",
+      "DevOps",
+      "Microservices",
+      "Performance Optimization",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Software Developer',
-    location: 'Los Angeles, CA',
+    status: "verified",
+    category: "Software Developer",
+    location: "Los Angeles, CA",
     yearsExperience: 9,
-    tagline: 'Engineering excellence for high-growth startups',
-    shortDescription: 'Build and scale cutting-edge applications for fast-growing startups. Work with modern tech stack and contribute to products used by millions of users.',
+    tagline: "Engineering excellence for high-growth startups",
+    shortDescription:
+      "Build and scale cutting-edge applications for fast-growing startups. Work with modern tech stack and contribute to products used by millions of users.",
     description: `NextGen Tech Labs is seeking a talented Software Engineer to build and scale applications for fast-growing startups. You'll work on cutting-edge technologies and contribute to products used by millions of users.
 
 Key Responsibilities:
@@ -272,23 +345,36 @@ What We Offer:
 • Remote work flexibility
 • Learning and development budget
 • Work with cutting-edge technologies`,
-    expertise: ['SaaS Applications', 'Cloud Architecture', 'API Development', 'System Design']
+    expertise: [
+      "SaaS Applications",
+      "Cloud Architecture",
+      "API Development",
+      "System Design",
+    ],
   },
   {
-    id: '7',
-    name: 'Elite Content Writers',
-    slug: 'elite-content-writers',
-    role: 'Content Writer',
-    logo: 'https://ui-avatars.com/api/?name=Elite+Content&size=200&background=14b8a6&color=fff&bold=true',
+    id: "7",
+    name: "Elite Content Writers",
+    slug: "elite-content-writers",
+    role: "Content Writer",
+    logo: "https://ui-avatars.com/api/?name=Elite+Content&size=200&background=14b8a6&color=fff&bold=true",
     rating: 4.8,
-    services: ['Blog Writing', 'Technical Writing', 'Copywriting', 'SEO Content', 'Social Media Content', 'Email Newsletters'],
+    services: [
+      "Blog Writing",
+      "Technical Writing",
+      "Copywriting",
+      "SEO Content",
+      "Social Media Content",
+      "Email Newsletters",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Content Writer',
-    location: 'Remote',
+    status: "verified",
+    category: "Content Writer",
+    location: "Remote",
     yearsExperience: 8,
-    tagline: 'Compelling content that engages and converts',
-    shortDescription: 'Create high-quality content for B2B and technical audiences. Write blog posts, white papers, and case studies that drive engagement and generate leads.',
+    tagline: "Compelling content that engages and converts",
+    shortDescription:
+      "Create high-quality content for B2B and technical audiences. Write blog posts, white papers, and case studies that drive engagement and generate leads.",
     description: `Elite Content Writers is looking for a skilled Content Writer to create high-quality content for B2B and technical audiences. You'll produce blog posts, white papers, case studies, and other content that drives engagement and leads.
 
 Key Responsibilities:
@@ -320,23 +406,36 @@ What We Offer:
 • Professional development opportunities
 • Work with diverse clients and industries
 • Supportive and creative team environment`,
-    expertise: ['SaaS Content', 'Technical Documentation', 'B2B Marketing', 'Thought Leadership']
+    expertise: [
+      "SaaS Content",
+      "Technical Documentation",
+      "B2B Marketing",
+      "Thought Leadership",
+    ],
   },
   {
-    id: '8',
-    name: 'CloudScale Solutions',
-    slug: 'cloudscale-solutions',
-    role: 'DevOps Engineer',
-    logo: 'https://ui-avatars.com/api/?name=CloudScale&size=200&background=0ea5e9&color=fff&bold=true',
+    id: "8",
+    name: "CloudScale Solutions",
+    slug: "cloudscale-solutions",
+    role: "DevOps Engineer",
+    logo: "https://ui-avatars.com/api/?name=CloudScale&size=200&background=0ea5e9&color=fff&bold=true",
     rating: 4.7,
-    services: ['CI/CD Pipeline', 'Cloud Infrastructure', 'Container Orchestration', 'Monitoring & Logging', 'Security', 'Cost Optimization'],
+    services: [
+      "CI/CD Pipeline",
+      "Cloud Infrastructure",
+      "Container Orchestration",
+      "Monitoring & Logging",
+      "Security",
+      "Cost Optimization",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'DevOps Engineer',
-    location: 'Denver, CO',
+    status: "verified",
+    category: "DevOps Engineer",
+    location: "Denver, CO",
     yearsExperience: 10,
-    tagline: 'Building reliable, scalable cloud infrastructure',
-    shortDescription: 'Build and maintain robust cloud infrastructure with AWS, Azure, and GCP. Automate deployments, improve reliability, and implement DevOps best practices.',
+    tagline: "Building reliable, scalable cloud infrastructure",
+    shortDescription:
+      "Build and maintain robust cloud infrastructure with AWS, Azure, and GCP. Automate deployments, improve reliability, and implement DevOps best practices.",
     description: `CloudScale Solutions is hiring a DevOps Engineer to build and maintain robust cloud infrastructure. You'll automate deployments, improve system reliability, and implement best practices for cloud operations.
 
 Key Responsibilities:
@@ -370,23 +469,31 @@ What We Offer:
 • Remote work options
 • Collaborative team culture
 • Latest tools and technologies`,
-    expertise: ['AWS & Azure', 'Kubernetes', 'Terraform', 'Site Reliability']
+    expertise: ["AWS & Azure", "Kubernetes", "Terraform", "Site Reliability"],
   },
   {
-    id: '9',
-    name: 'Mobile First Studios',
-    slug: 'mobile-first-studios',
-    role: 'Mobile Developer',
-    logo: 'https://ui-avatars.com/api/?name=Mobile+First&size=200&background=8b5cf6&color=fff&bold=true',
+    id: "9",
+    name: "Mobile First Studios",
+    slug: "mobile-first-studios",
+    role: "Mobile Developer",
+    logo: "https://ui-avatars.com/api/?name=Mobile+First&size=200&background=8b5cf6&color=fff&bold=true",
     rating: 4.9,
-    servic3es: ['iOS Development', 'Android Development', 'React Native', 'Flutter', 'App Store Optimization', 'Mobile UI/UX'],
+    servic3es: [
+      "iOS Development",
+      "Android Development",
+      "React Native",
+      "Flutter",
+      "App Store Optimization",
+      "Mobile UI/UX",
+    ],
     verified: true,
-    status: 'verified',
-    category: 'Mobile Developer',
-    location: 'Miami, FL',
+    status: "verified",
+    category: "Mobile Developer",
+    location: "Miami, FL",
     yearsExperience: 7,
-    tagline: 'Crafting beautiful mobile experiences users love',
-    shortDescription: 'Build beautiful, performant mobile applications using React Native or Flutter. Work on consumer and enterprise apps for iOS and Android platforms.',
+    tagline: "Crafting beautiful mobile experiences users love",
+    shortDescription:
+      "Build beautiful, performant mobile applications using React Native or Flutter. Work on consumer and enterprise apps for iOS and Android platforms.",
     description: `Mobile First Studios is seeking a Mobile Developer to build beautiful, performant mobile applications. You'll work on consumer and enterprise apps using React Native or Flutter.
 
 Key Responsibilities:
@@ -419,22 +526,35 @@ What We Offer:
 • Flexible work arrangements
 • Creative and collaborative team
 • Health, dental, and vision insurance`,
-    expertise: ['Consumer Apps', 'Enterprise Mobile', 'Cross-Platform', 'App Monetization']
+    expertise: [
+      "Consumer Apps",
+      "Enterprise Mobile",
+      "Cross-Platform",
+      "App Monetization",
+    ],
   },
   {
-    id: '10',
-    name: 'QA Masters',
-    slug: 'qa-masters',
-    role: 'QA Engineer',
-    logo: 'https://ui-avatars.com/api/?name=QA+Masters&size=200&background=f59e0b&color=fff&bold=true',
+    id: "10",
+    name: "QA Masters",
+    slug: "qa-masters",
+    role: "QA Engineer",
+    logo: "https://ui-avatars.com/api/?name=QA+Masters&size=200&background=f59e0b&color=fff&bold=true",
     rating: 4.6,
-    services: ['Manual Testing', 'Automation Testing', 'Performance Testing', 'Security Testing', 'Test Strategy', 'Bug Tracking'],
+    services: [
+      "Manual Testing",
+      "Automation Testing",
+      "Performance Testing",
+      "Security Testing",
+      "Test Strategy",
+      "Bug Tracking",
+    ],
     verified: false,
-    category: 'QA Engineer',
-    location: 'Chicago, IL',
+    category: "QA Engineer",
+    location: "Chicago, IL",
     yearsExperience: 9,
-    tagline: 'Ensuring quality through comprehensive testing',
-    shortDescription: 'Ensure software meets the highest quality standards. Design test strategies, automate tests, and deliver bug-free products with development teams.',
+    tagline: "Ensuring quality through comprehensive testing",
+    shortDescription:
+      "Ensure software meets the highest quality standards. Design test strategies, automate tests, and deliver bug-free products with development teams.",
     description: `QA Masters is looking for a QA Engineer to ensure our software meets the highest quality standards. You'll design test strategies, automate tests, and work closely with development teams to deliver bug-free products.
 
 Key Responsibilities:
@@ -468,16 +588,21 @@ What We Offer:
 • Career growth opportunities
 • Collaborative team environment
 • Hybrid work model`,
-    expertise: ['Web Testing', 'API Testing', 'Mobile Testing', 'Test Automation']
-  }
+    expertise: [
+      "Web Testing",
+      "API Testing",
+      "Mobile Testing",
+      "Test Automation",
+    ],
+  },
 ];
 
 export const mainCategories = [
-  'Software Developer',
-  'Designer',
-  'Project Manager',
-  'Data Analyst',
-  'DevOps Engineer',
-  'Mobile Developer',
-  'QA Engineer'
+  "Software Developer",
+  "Designer",
+  "Project Manager",
+  "Data Analyst",
+  "DevOps Engineer",
+  "Mobile Developer",
+  "QA Engineer",
 ];
